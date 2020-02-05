@@ -31,7 +31,7 @@ jobs:
         cd build
         cmake ..
         cd ..
-        ./build-wrapper-linux-x86-64 --out-dir bw-output cmake --build build/ --config Release
+        ./build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir bw-output cmake --build build/ --config Release
         sonar-scanner \
           -Dsonar.organization=gregaubert \
           -Dsonar.projectKey=gregaubert_sonarcloud-cpp-test \
