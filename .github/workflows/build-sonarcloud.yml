@@ -10,6 +10,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Download sonarscanner and build wrapper then build and execute SC
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       run: |
         export SONAR_SCANNER_VERSION=4.2.0.1873
         export SONAR_SCANNER_HOME=$HOME/.sonar/sonar-scanner-$SONAR_SCANNER_VERSION-linux
@@ -38,4 +41,4 @@ jobs:
           -Dsonar.sources=. \
           -Dsonar.host.url=https://greg.eu.ngrok.io \
           -Dsonar.cfamily.build-wrapper-output=bw-output \
-          -Dsonar.login=4c8b26b1e15ea7034f6d76cd56ab7df3e69d7c43      
+          -Dsonar.login=$SONAR_TOKEN      
