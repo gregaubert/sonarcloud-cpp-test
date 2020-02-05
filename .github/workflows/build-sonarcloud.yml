@@ -41,4 +41,4 @@ jobs:
           -Dsonar.sources=. \
           -Dsonar.host.url=https://greg.eu.ngrok.io \
           -Dsonar.cfamily.build-wrapper-output=bw-output \
-          -Dsonar.login=$SONAR_TOKEN -X 
+          -Dsonar.login=${SONAR_TOKEN}
