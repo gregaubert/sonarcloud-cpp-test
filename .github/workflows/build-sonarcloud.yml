@@ -34,11 +34,11 @@ jobs:
         cd ..
         
         ./build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir bw-output cmake --build build/ --config Release
-        
+        echo $SONAR_TOKEN
         sonar-scanner \
           -Dsonar.organization=gregaubert \
           -Dsonar.projectKey=gregaubert_sonarcloud-cpp-test \
           -Dsonar.sources=. \
           -Dsonar.host.url=https://greg.eu.ngrok.io \
           -Dsonar.cfamily.build-wrapper-output=bw-output \
-          -Dsonar.login=${SONAR_TOKEN}
+          -Dsonar.login=$SONAR_TOKEN
