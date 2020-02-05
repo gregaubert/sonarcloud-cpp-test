@@ -9,7 +9,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Download sonarscanner and build wrapper
+    - name: Download sonarscanner and build wrapper then build and execute SC
       run: |
         export SONAR_SCANNER_VERSION=4.2.0.1873
         export SONAR_SCANNER_HOME=$HOME/.sonar/sonar-scanner-$SONAR_SCANNER_VERSION-linux
@@ -23,17 +23,15 @@ jobs:
 
         curl -LsS https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip > build-wrapper-linux-x86.zip
         unzip build-wrapper-linux-x86.zip
-        ls -al
-    - name: Build and execute SC
-      run: |
-        echo $PATH
-        echo $SONAR_SCANNER_HOME
+        
         rm -rf build                                                                  
         mkdir build
         cd build
         cmake ..
         cd ..
+        
         ./build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir bw-output cmake --build build/ --config Release
+        
         sonar-scanner \
           -Dsonar.organization=gregaubert \
           -Dsonar.projectKey=gregaubert_sonarcloud-cpp-test \
