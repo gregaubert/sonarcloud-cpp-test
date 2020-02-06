@@ -13,8 +13,8 @@ get-sonar-binaries:
   script:
     # Download sonar-scanner
     - curl -sSLo ./sonar-scanner.zip 'https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.2.0.1873-linux.zip'
-    - unzip -oj sonar-scanner.zip -d ./sonar-scanner
-    - ls -la ./sonar-scanner
+    - unzip -o sonar-scanner-cli-${scannerVersion}-linux.zip
+    - mv sonar-scanner-${scannerVersion}-linux sonar-scanner
     # Download build-wrapper
     - curl -sSLo ./build-wrapper-linux-x86.zip "${SONAR_HOST_URL}/static/cpp/build-wrapper-linux-x86.zip"
     - unzip -oj build-wrapper-linux-x86.zip -d ./build-wrapper
