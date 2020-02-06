@@ -1,6 +1,18 @@
-dist: trusty
-sudo: false
+addons:
+  sonarcloud:
+    organization: "gregaubert"
+    token:
+      secure: "V07TKC8XfqRs/wmDz/NgB/j4pkGcKYIlT0WqrOltQmKU7nAjuaZRY3w1AN+p4syXPH6LYcjOF4wy80EkJk6Fzv7h6NGqsPbiK2CvOEpnRsUMIk0qLYkdxnUawjuGzBeom1kUm6axOa76VjJDYmKm5Q4YkRw7bCy4O7GnBxHSDJv1rFXqQLJBzfCX4E+JTEWuR1Moy2+t+XXbLdT7gmfQQJ0NYNk7jO85ktnIMHCdy6buG8RQj/Ob6A758Nx+Eg2UUSk+XON80tISe/aYTl2LDNUhmWSNxSAf9sSDzx2uCU18IiQz0rAsJhgS3tAsCLQLe4+Dpn2L46MPQuV01l4RI6X2ISf4IrMpmgklxXw9B/Z1/4voHp0oeDSIfVxW67zhyQwBhq6IP9YRUcXRIqegr7BxfVwImHIXpLI5C+Lv17HtAFicjqDMX9R/eG5dYpZ/c8ncuoTWPBkZQVyhowvijZP8cvoG148tX3mB/ylISiMalrd0D2pKI50zFrfp3FZ3LiOJ1+xEXG4Khf6CtmO/Zv+FGU+hInqtXE92vX6IBeYmlY8iJKVnsT3RAk8guGLbefd6pKruiWIG39HBdOiVcM5NXJ1Teg9WhYDU31424t61/u6hGwK1Yw3sTJpXrMod081E9F5qhdm4SHS9xMhfRDCP5XFroo1DfFHLMYh7N8c=" # encrypted value of your token
 
 script:
-  # This script could be run from any CI
-  - bash build.sh
+  - rm -rf build
+  - mkdir build
+  - cd build
+  - cmake ..
+  - cd ..
+  # Wraps the compilation with the Build Wrapper to generate configuration (used
+  # later by the SonarScanner) into the "bw-output" folder
+  - build-wrapper-linux-x86-64 --out-dir bw-output cmake --build build/ --config Release
+  # And finally run the SonarCloud analysis - read the "sonar-project.properties"
+  # file to see the specific configuration
+  - sonar-scanner
