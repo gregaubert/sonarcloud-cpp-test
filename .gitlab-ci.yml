@@ -16,7 +16,7 @@ get-sonar-binaries:
     - unzip -oj sonar-scanner.zip -d ./sonar-scanner
     # Download build-wrapper
     - curl -sSLo ./build-wrapper-linux-x86.zip "${SONAR_HOST_URL}/static/cpp/build-wrapper-linux-x86.zip"
-    - unzip -oj build-wrapper-linux-x86.zip ./build-wrapper
+    - unzip -oj build-wrapper-linux-x86.zip -d ./build-wrapper
     # workaround to the bw haswell bug
     - cp build-wrapper/libinterceptor-x86_64.so build-wrapper/libinterceptor-haswell.so
   cache:
