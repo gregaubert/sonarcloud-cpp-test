@@ -18,7 +18,7 @@ get-sonar-binaries:
     # Download build-wrapper
     - curl -sSLo ./build-wrapper-linux-x86.zip "${SONAR_HOST_URL}/static/cpp/build-wrapper-linux-x86.zip"
     - unzip -oj build-wrapper-linux-x86.zip -d ./build-wrapper
-    # workaround to the bw haswell bug
+    # Workaround to the bw haswell bug
     - cp build-wrapper/libinterceptor-x86_64.so build-wrapper/libinterceptor-haswell.so
   cache:
     policy: push
@@ -35,7 +35,8 @@ build:
     - cd build
     - cmake ..
     - cd ..
-    - build-wrapper/build-wrapper-linux-x86-64 --out-dir bw_output cmake --build build/ --config Release
+    # Run the build inside the build wrapper
+    - build-wrapper/build-wrapper-linux-x86-64 --out-dir bw_output <your clean build command>
   cache:
     policy: pull-push
     key: "${CI_COMMIT_SHORT_SHA}"
