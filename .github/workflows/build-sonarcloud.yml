@@ -26,7 +26,6 @@ jobs:
 
         curl -sSLo $HOME/.sonar/build-wrapper-linux-x86.zip https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip
         unzip $HOME/.sonar/build-wrapper-linux-x86.zip $HOME/.sonar/
-        rm $HOME/.sonar/build-wrapper-linux-x86.zip
         export PATH=$HOME/.sonar/build-wrapper-linux-x86:$PATH
         
         rm -rf build                                                                  
