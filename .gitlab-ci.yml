@@ -43,7 +43,7 @@ build:
       - build-wrapper-linux-x86/
       - sonar-scanner/
       - build_wrapper_output_directory/
-      - .sonar/cache
+      - build/
 
 sonarcloud-check:
   stage: .post
@@ -54,7 +54,7 @@ sonarcloud-check:
       - build-wrapper-linux-x86/
       - sonar-scanner/
       - build_wrapper_output_directory/
-      - .sonar/cache
+      - build/
   script:
     - sonar-scanner/bin/sonar-scanner -X -Dsonar.host.url="${SONAR_HOST_URL}" -Dsonar.token="${SONAR_TOKEN}" -Dsonar.cfamily.build-wrapper-output=build_wrapper_output_directory
   only:
