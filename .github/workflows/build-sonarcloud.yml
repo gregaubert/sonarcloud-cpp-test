@@ -1,0 +1,42 @@
+name: CI
+
+#on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Download sonarscanner and build wrapper then build and execute SC
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      run: |
+        export SONAR_SCANNER_VERSION=4.2.0.1873
+        export SONAR_SCANNER_HOME=$HOME/.sonar/sonar-scanner-$SONAR_SCANNER_VERSION-linux
+        curl --create-dirs -sSLo $HOME/.sonar/sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-$SONAR_SCANNER_VERSION-linux.zip
+        unzip -o $HOME/.sonar/sonar-scanner.zip -d $HOME/.sonar/
+        export PATH=$SONAR_SCANNER_HOME/bin:$PATH
+        export SONAR_SCANNER_OPTS="-server"
+
+        curl --create-dirs -sSLo $HOME/.sonar/build-wrapper-linux-x86.zip https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip
+        unzip -o $HOME/.sonar/build-wrapper-linux-x86.zip -d $HOME/.sonar/
+        export PATH=$HOME/.sonar/build-wrapper-linux-x86:$PATH
+        
+        rm -rf build                                                                  
+        mkdir build
+        cd build
+        cmake ..
+        cd ..
+        
+        build-wrapper-linux-x86-64 --out-dir bw-output cmake --build build/ --config Release
+        
+        sonar-scanner \
+          -Dsonar.organization=gregaubert \
+          -Dsonar.projectKey=gregaubert_sonarcloud-cpp-test \
+          -Dsonar.sources=. \
+          -Dsonar.host.url=https://greg.eu.ngrok.io \
+          -Dsonar.cfamily.build-wrapper-output=bw-output \
+          -Dsonar.login=$SONAR_TOKEN
