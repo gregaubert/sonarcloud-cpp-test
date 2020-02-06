@@ -14,6 +14,7 @@ get-sonar-binaries:
     # Download sonar-scanner
     - curl -sSLo ./sonar-scanner.zip 'https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.2.0.1873-linux.zip'
     - unzip -oj sonar-scanner.zip -d ./sonar-scanner
+    - ls -la ./sonar-scanner
     # Download build-wrapper
     - curl -sSLo ./build-wrapper-linux-x86.zip "${SONAR_HOST_URL}/static/cpp/build-wrapper-linux-x86.zip"
     - unzip -oj build-wrapper-linux-x86.zip -d ./build-wrapper
@@ -34,14 +35,14 @@ build:
     - cd build
     - cmake ..
     - cd ..
-    - build-wrapper/build-wrapper-linux-x86-64 --out-dir build_wrapper_output_directory cmake --build build/ --config Release
+    - build-wrapper/build-wrapper-linux-x86-64 --out-dir bw_output cmake --build build/ --config Release
   cache:
     policy: pull-push
     key: "${CI_COMMIT_SHORT_SHA}"
     paths:
       - build-wrapper/
       - sonar-scanner/
-      - build_wrapper_output_directory/
+      - bw_output/
       - build/
 
 sonarcloud-check:
@@ -52,10 +53,10 @@ sonarcloud-check:
     paths:
       - build-wrapper/
       - sonar-scanner/
-      - build_wrapper_output_directory/
+      - bw_output/
       - build/
   script:
-    - sonar-scanner/bin/sonar-scanner -X -Dsonar.host.url="${SONAR_HOST_URL}" -Dsonar.token="${SONAR_TOKEN}" -Dsonar.cfamily.build-wrapper-output=build_wrapper_output_directory
+    - sonar-scanner/bin/sonar-scanner -X -Dsonar.host.url="${SONAR_HOST_URL}" -Dsonar.token="${SONAR_TOKEN}" -Dsonar.cfamily.build-wrapper-output=bw_output
   only:
     - merge_requests
     - master
