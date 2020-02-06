@@ -36,7 +36,7 @@ build:
     - cmake ..
     - cd ..
     # Run the build inside the build wrapper
-    - build-wrapper/build-wrapper-linux-x86-64 --out-dir bw_output <your clean build command>
+    - build-wrapper/build-wrapper-linux-x86-64 --out-dir bw_output cmake --build build/ --config Release
   cache:
     policy: pull-push
     key: "${CI_COMMIT_SHORT_SHA}"
