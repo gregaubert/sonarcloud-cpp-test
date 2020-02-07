@@ -2,6 +2,9 @@ dist: trusty
 addons:
   sonarcloud:
     organization: "gregaubert"
+    token:
+      secure: "G23WHJxIKbZUoLJlRGHaMpK8WzK5OBlG4wul1yRE7Wu8dhMv1iH1r3xGJtywx3fsnmEhL0kMsoV9A5KGHo36QEDoVVImbdCmPMeDyjWInqv4KrVKOrYL4KRNkMHJ6Fd0ZIyEX/KmdcwUX6OueXTkvdd37EQZ0BhJhz0LHxx2ctLDzoNgc3kGMLAlhp3gqjSSousQTJQuO9UdWDOz9tWlAtO/5VnD1XqrD9vVCjYGoHwCtOxakzPuBhBvr70hC+mFZI/lt3CoDlUTvjJREydjNNGciyXZJEjMSOmYF1EnCbQ+DDl5K7KXMQy72Mfg2K+jDXPDeX6bnttnJFvFktgoXnGJ9lL/OQkd7RLGSCzLLkLYQV7Q+unsyQqe3Q6IxsMwUzj8gV5IpWkdOOCLk57h9j4G9hyRfINdUYICmMSFBTQ20kQZXMervvNZRxdLCSNfn9Ay3P6ROUzK4fhqRMJ6xi52Pnen/r6ViqOxyFuw+z0blu04D+hvTasUchobQoLELZigHn38KUoEe5KpoWxHBF67nvumsI8JO6bOS94ZKNi8A32XLR8Oq0X0ZZgSD9uaU3oC5ePhn4ClElTVJMOlLkO5uvaOwh0sSNwIuJx8vjGASk5150qH1X+xvrM+TYsONA63dPcebPBU6cjmm5lUArJkGkvn4r7m+XvQHjjauxk="
+
     
 script:
   - rm -rf build
