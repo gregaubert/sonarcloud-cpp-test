@@ -2,8 +2,8 @@ dist: trusty
 addons:
   sonarcloud:
     organization: "gregaubert"
-    token:
-      secure: "lI8GHqwPDWscEJJmYEEAUZx4U6aH1mZ57xgOM1JYut+kZoDbFvdbs3zufMNoF3JldAjNlCE5E51J6stJoYlpNj9bhWr11HVz0CW2syYQQ58pm6J5M3wcIIEKi/SUCFu0ND0rs4dvyCN154VH/so2JZSz7+s9DJZVmqC+r+O86EBwzw0bN2Ykz2BGvnhhpdd+PuDsJ1GGnRKcA3PoO59Fkf0dVduq41snFFJpVS1zmhVisnTjlmgNgVsha+Lgdl84JcZcILJrwCL68Hd1/RoTNvvK3hT2pqgSv8KtDcKl4oBU/ae+23L6BIMRSTBL4UJpE2i4s+B2MT5OkIyJWGHLoq5P4z6G+k4Nrx9Ng57mAe7HkqqQAVelf7IGm1Q/X3+qdI1oWyQMVPy96IRMnpadfmVFVD62wyCK+1yQzglWyJKIpKKfSVsdXlVcplG5Pcg5QAIipWwOVO3ncqT1BcbpAg4OPFb0R6rbRmLTE/MIaHlmjXKebP/mtVYBB9i0enNTRHGqfou+tuzQoCwI2ilf/0rse4EASDpUgnmDF7xrav6gGIJECixJ9pWjvZQVICGs+YSoaEG4p/0RGDWd8rjcTSJzS5JN0GuZR2pxpt974c/t1ZQCnuBpiB6Q9slLKkHUHqPp9/pRH/rGp9v9eNTl1UE2N1/Pix49OaNffGySwfA="
+    #token:
+     # secure: "lI8GHqwPDWscEJJmYEEAUZx4U6aH1mZ57xgOM1JYut+kZoDbFvdbs3zufMNoF3JldAjNlCE5E51J6stJoYlpNj9bhWr11HVz0CW2syYQQ58pm6J5M3wcIIEKi/SUCFu0ND0rs4dvyCN154VH/so2JZSz7+s9DJZVmqC+r+O86EBwzw0bN2Ykz2BGvnhhpdd+PuDsJ1GGnRKcA3PoO59Fkf0dVduq41snFFJpVS1zmhVisnTjlmgNgVsha+Lgdl84JcZcILJrwCL68Hd1/RoTNvvK3hT2pqgSv8KtDcKl4oBU/ae+23L6BIMRSTBL4UJpE2i4s+B2MT5OkIyJWGHLoq5P4z6G+k4Nrx9Ng57mAe7HkqqQAVelf7IGm1Q/X3+qdI1oWyQMVPy96IRMnpadfmVFVD62wyCK+1yQzglWyJKIpKKfSVsdXlVcplG5Pcg5QAIipWwOVO3ncqT1BcbpAg4OPFb0R6rbRmLTE/MIaHlmjXKebP/mtVYBB9i0enNTRHGqfou+tuzQoCwI2ilf/0rse4EASDpUgnmDF7xrav6gGIJECixJ9pWjvZQVICGs+YSoaEG4p/0RGDWd8rjcTSJzS5JN0GuZR2pxpt974c/t1ZQCnuBpiB6Q9slLKkHUHqPp9/pRH/rGp9v9eNTl1UE2N1/Pix49OaNffGySwfA="
 
 script:
   - rm -rf build
@@ -16,4 +16,4 @@ script:
   - build-wrapper-linux-x86-64 --out-dir bw-output cmake --build build/ --config Release
   # And finally run the SonarCloud analysis - read the "sonar-project.properties"
   # file to see the specific configuration
-  - sonar-scanner -X -Dsonar.host.url="https://greg.eu.ngrok.io/" -Dsonar.cfamily.build-wrapper-output=bw_output
+  - sonar-scanner -X -Dsonar.host.url="https://greg.eu.ngrok.io/" -Dsonar.token="${SONAR_TOKEN}" -Dsonar.cfamily.build-wrapper-output=bw_output
